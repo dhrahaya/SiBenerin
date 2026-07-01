@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SiBenerin</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        
+        <!-- ================= LOGIN ================= -->
+        <div id="login-screen" class="screen active">
+            
+            <div class="login-content" id="login-step-1">
+                <div class="logo-wrapper">
+                    <img src="gambar\logo sibenerin.png" alt="Logo SiBenerin" onerror="this.src='https://via.placeholder.com/120/A7C7E7/FFFFFF?text=SiBenerin'">
+                </div>
+                <h3>Selamat Datang di SiBenerin</h3>
+                <p class="subtitle">Silakan masukkan email kamu.</p>
+                
+                <input type="email" id="email-input" class="form-input" placeholder="contoh@gmail.com" style="text-align: center;">
+                
+                <button class="btn btn-primary" onclick="nextLoginStep()">Selanjutnya</button>
+                <div class="divider"><span>atau</span></div>
+                <button class="btn btn-outline" onclick="login()">Masuk dengan Google</button>
+            </div>
+
+            <div class="login-content" id="login-step-2" style="display: none;">
+                <div class="logo-wrapper" style="width: 80px; height: 80px; margin-bottom: 15px;">
+                    <img src="gambar/logo sibenerin.png" alt="Logo SiBenerin" onerror="this.src='https://via.placeholder.com/120/A7C7E7/FFFFFF?text=SiBenerin'">
+                </div>
+                <h3>Masukkan Password</h3>
+                <p class="subtitle" id="user-email-display" style="font-weight: 600; color: var(--primary-sky);">user@gmail.com</p>
+                
+                <!-- KOTAK PASSWORD DENGAN IKON MATA -->
+                <div style="position: relative; margin-bottom: 20px;">
+                    <input type="password" id="password-input" class="form-input" placeholder="••••••••" style="text-align: center; letter-spacing: 2px; margin-bottom: 0; padding-right: 40px;">
+                    <span id="toggle-password" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 1.1rem; user-select: none;" onclick="togglePassword()">👁️</span>
+                </div>
+                
+                <div id="password-hint" class="hint-box" style="display: none;">
+                    💡 <strong>Clue:</strong> Password kamu terdiri dari 8 karakter dan diawali dengan huruf <strong>'S'</strong>.
+                </div>
+
+                <p id="password-error" style="color: var(--danger); font-size: 0.85rem; display: none; margin-bottom: 15px; font-weight: 500;">
+                    Password yang Anda masukkan salah.
+                </p>
+                <button class="btn btn-primary" onclick="login()">Masuk</button>
+                <button class="btn-text mt-10" onclick="showHint()">Lupa Password?</button>
+                <button class="btn-text mt-10" style="color: var(--text-muted); font-size: 0.85rem;" onclick="prevLoginStep()">⬅ Ganti Email</button>
+            </div>
+        </div>
+
+        <!-- ================= BERANDA ================= -->
+        <div id="home-screen" class="screen with-nav">
+            <div class="header-main">
+                <div class="user-info" style="cursor: pointer;" onclick="navBottom('akun')">
+                    <img src="gambar/profil.png" alt="Profil User" class="avatar" style="background: none; object-fit: cover;">
+                    <div>
+                        <p class="greeting">Selamat Pagi,</p>
+                        <h4>Pengguna</h4>
+                    </div>
+                </div>
+                <div class="notification-icon" style="cursor: pointer; position: relative;" onclick="navTo('notification')">
+                    🔔
+                    <span class="notif-dot"></span>
+                </div>
+                
+            </div>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Cari layanan perbaikan...">
+            </div>
+
+            <!-- === BANNER PROMO IKLAN === -->
+            <div class="promo-slider" onclick="navTo('service-list', 'Pendingin')">
+                <div class="slides-wrapper" id="promo-slides">
+                    <div class="slide">
+                        <img src="gambar\iklan1.jpeg" alt="Promo Perbaikan AC">
+                    </div>
+                    <div class="slide">
+                        <img src="gambar\iklan2.jpeg" alt="Promo Diskon Tukang">
+                    </div>
+                    <div class="slide">
+                        <img src="gambar\iklan3.jpeg" alt="Promo Diskon Carport">
+                    </div>
+                </div>
+                <div class="slider-dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+            <h5 class="section-title">Kategori Layanan</h5>
+            <div class="categories">
+                <div class="category-card" onclick="navTo('service-list', 'Kelistrikan')">
+                    <div class="cat-icon" style="background: #eef2ff;">⚡</div>
+                    <span>Kelistrikan</span>
+                </div>
+                <div class="category-card" onclick="navTo('service-list', 'Sistem Air')">
+                    <div class="cat-icon" style="background: #f0fdf4;">💧</div>
+                    <span>Sistem Air</span>
+                </div>
+                <div class="category-card" onclick="navTo('service-list', 'Elektronik')">
+                    <div class="cat-icon" style="background: #fdf2f8;">📱</div>
+                    <span>Elektronik</span>
+                </div>
+                <div class="category-card" onclick="navTo('service-list', 'Pendingin')">
+                    <div class="cat-icon" style="background: #f0f9ff;">❄️</div>
+                    <span>Pendingin</span>
+                </div>
+                <div class="category-card" onclick="navTo('service-list', 'Konstruksi')">
+                    <div class="cat-icon" style="background: #fffbeb;">🏗️</div>
+                    <span>Konstruksi</span>
+                </div>
+                <div class="category-card emergency" onclick="navTo('service-list', 'Darurat')">
+                    <div class="cat-icon" style="background: #fee2e2;">🚨</div>
+                    <span>Darurat</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= AKTIVITAS ================= -->
+        <div id="activity-screen" class="screen with-nav">
+            <div class="header-simple">
+                <h4>Aktivitas Pesanan</h4>
+            </div>
+            <div class="tabs">
+                <div class="tab active" onclick="switchTab('active-orders', this)">Berjalan</div>
+                <div class="tab" onclick="switchTab('history-orders', this)">Riwayat</div>
+            </div>
+            
+            <div id="active-orders" class="tab-content active">
+                <div class="activity-card" onclick="navTo('order-detail')">
+                    <div class="activity-header">
+                        <div class="badge badge-process">Teknisi Menuju Lokasi</div>
+                        <span class="date">Hari ini, 10:30</span>
+                    </div>
+                    <h4>Cuci AC Split & Tambah Freon</h4>
+                    <p class="desc">Teknisi: Budi Santoso</p>
+                    <div class="price-row">
+                        <span class="price">Rp 150.000</span>
+                        <button class="btn-text">Lihat Detail ➔</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="history-orders" class="tab-content">
+                <div class="activity-card" onclick="navTo('history-detail')">
+                    <div class="activity-header">
+                        <div class="badge badge-done">Selesai</div>
+                        <span class="date">12 Apr 2026</span>
+                    </div>
+                    <h4>Perbaikan Pipa Wastafel Bocor</h4>
+                    <p class="desc">Teknisi: Agus Teknisi</p>
+                    <div class="price-row">
+                        <span class="price">Rp 250.000</span>
+                        <div class="rating">⭐⭐⭐⭐⭐</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= DETAIL PESANAN (AKTIF) ================= -->
+        <div id="order-detail-screen" class="screen">
+            <div class="header-nav">
+                <span class="back-btn" onclick="navBack()">⬅ Kembali</span>
+                <h4>Detail Pesanan</h4>
+                <div style="width: 60px;"></div>
+            </div>
+            <div class="detail-content">
+                <div class="order-id">ID Pesanan: #SBN-99281</div>
+                
+                <ul class="timeline">
+                    <li class="completed">
+                        <div class="time">09:00</div>
+                        <div class="event">Pesanan Dibuat</div>
+                    </li>
+                    <li class="completed">
+                        <div class="time">09:15</div>
+                        <div class="event">Teknisi Ditemukan (Budi Santoso)</div>
+                    </li>
+                    <li class="active">
+                        <div class="time">10:30</div>
+                        <div class="event">Teknisi Menuju Lokasi</div>
+                    </li>
+                    <li>
+                        <div class="time">--:--</div>
+                        <div class="event">Pekerjaan Dimulai</div>
+                    </li>
+                    <li>
+                        <div class="time">--:--</div>
+                        <div class="event">Selesai & Pembayaran</div>
+                    </li>
+                </ul>
+
+                <div class="technician-card">
+                    <div class="avatar"></div>
+                    <div class="tech-info">
+                        <h5>Budi Santoso</h5>
+                        <p>Ahli Pendingin Ruangan</p>
+                    </div>
+                    <button class="btn-icon" onclick="navTo('chat-room-budi')">💬</button>
+                </div> 
+            </div> 
+        </div> 
+
+        <!-- ================= DETAIL RIWAYAT (SELESAI) ================= -->
+        <div id="history-detail-screen" class="screen">
+            <div class="header-nav">
+                <span class="back-btn" onclick="navBack()">⬅ Kembali</span>
+                <h4>Riwayat Pekerjaan</h4>
+                <div style="width: 60px;"></div>
+            </div>
+            <div class="detail-content">
+                <div class="badge badge-done" style="display:inline-block; margin-bottom:15px;">Pesanan Selesai</div>
+                <h3>Perbaikan Pipa Wastafel Bocor</h3>
+                <p class="date-full">Selesai pada: 12 Apr 2026, 14:30 WIB</p>
+                
+                <div class="divider"></div>
+                <h4 style="text-align: center;">Beri Ulasan Teknisi</h4>
+                <div class="star-rating" id="rating-stars" style="text-align: center; margin-top: 10px;">
+                    <span class="star" onclick="setRating(1)">★</span>
+                    <span class="star" onclick="setRating(2)">★</span>
+                    <span class="star" onclick="setRating(3)">★</span>
+                    <span class="star" onclick="setRating(4)">★</span>
+                    <span class="star" onclick="setRating(5)">★</span>
+                </div>
+                <h4>Bukti Pekerjaan</h4>
+                <div class="photo-compare">
+                    <div class="photo-box">
+                        <img src="gambar\pipasebelum.jpeg" 
+                            alt="Pipa Sebelum" 
+                            style="width: 100%; height: 100px; object-fit: cover; border-radius: 12px; margin-bottom: 8px; border: 1px solid var(--border-color);">
+                        <span>Sebelum</span>
+                    </div>
+                    <div class="photo-box">
+                        <img src="gambar\pipasesudah.jpeg" 
+                            alt="Pipa Sesudah" 
+                            style="width: 100%; height: 100px; object-fit: cover; border-radius: 12px; margin-bottom: 8px; border: 1px solid var(--border-color);">
+                        <span>Sesudah</span>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <h4>Rincian Biaya</h4>
+                <div class="receipt-row"><span>Jasa Perbaikan</span><span>Rp 150.000</span></div>
+                <div class="receipt-row"><span>Penggantian Pipa PVC</span><span>Rp 100.000</span></div>
+                <div class="receipt-row total"><span>Total Biaya</span><span>Rp 250.000</span></div>
+            </div>
+        </div>
+
+        <!-- ================= DAFTAR LAYANAN (DINAMIS) ================= -->
+        <div id="service-list-screen" class="screen">
+            <div class="header-nav">
+                <span class="back-btn" onclick="navBack()">⬅ Kembali</span>
+                <h4 id="service-title">Layanan</h4>
+                <div style="width: 60px;"></div>
+            </div>
+            <div class="service-items">
+                <div class="activity-card">
+                    <h4>Pengecekan & Perbaikan Standar</h4>
+                    <p class="desc">Mulai dari Rp 50.000</p>
+                    <button class="btn btn-primary btn-small mt-10" onclick="navTo('booking')">Pesan Sekarang</button>
+                </div>
+                <div class="activity-card">
+                    <h4>Pemasangan / Instalasi Baru</h4>
+                    <p class="desc">Mulai dari Rp 100.000</p>
+                    <button class="btn btn-primary btn-small mt-10" onclick="navTo('booking')">Pesan Sekarang</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= FORM BOOKING ================= -->
+        <div id="booking-screen" class="screen">
+            <div class="header-nav">
+                <span class="back-btn" onclick="navBack()">⬅ Batal</span>
+                <h4>Pesan Teknisi</h4>
+                <div style="width: 60px;"></div>
+            </div>
+            <div class="form-container">
+                <label>Jadwal Kedatangan</label>
+                <input type="datetime-local" class="form-input">
+                
+                <label>Alamat Lengkap</label>
+                <textarea class="form-input" rows="3" placeholder="Jl. Contoh No. 123..."></textarea>
+
+                <label>Deskripsi Kendala</label>
+                <textarea class="form-input" rows="3" placeholder="Jelaskan kerusakan yang terjadi..."></textarea>
+                
+                <label>Foto Kerusakan (Opsional)</label>
+                <div class="upload-box" id="upload-area" onclick="simulateUpload()">
+                    <span id="upload-text">📷 Klik untuk unggah foto</span>
+                    <img id="uploaded-img" src="" style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+                </div>
+                <button class="btn btn-primary" style="margin-top:20px;" onclick="confirmBooking()">Konfirmasi Pesanan</button>
+            </div>
+        </div>
+
+        <!-- ================= CHAT LIST ================= -->
+        <div id="chat-screen" class="screen with-nav">
+            <div class="header-simple"><h4>Pesan Masuk</h4></div>
+            <div class="chat-list">
+                
+                <div class="chat-item unread" onclick="navTo('chat-room-budi')">
+                    <div class="avatar"></div>
+                    <div class="chat-info">
+                        <div class="chat-head"><h5>Budi Santoso</h5><span class="time">10:32</span></div>
+                        <p>Saya sudah di depan pagar rumah ya kak...</p>
+                    </div>
+                </div>
+
+                <div class="chat-item" onclick="navTo('chat-room-cs')">
+                    <img src="gambar\logobenerin.jpeg" alt="CS SiBenerin" class="avatar" style="background: white; object-fit: contain; border: 1px solid var(--border-color); padding: 2px;">
+                    
+                    <div class="chat-info">
+                        <div class="chat-head"><h5>CS SiBenerin</h5><span class="time">Kemarin</span></div>
+                        <p>Terima kasih telah menggunakan layanan kami.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= CHAT ROOM: BUDI SANTOSO ================= -->
+        <div id="chat-room-budi-screen" class="screen">
+            <div class="header-nav">
+                <span class="back-btn" onclick="navBack()">⬅ Kembali</span>
+                <h4>Budi Santoso</h4>
+                <div style="width: 60px;"></div>
+            </div>
+            <div class="chat-area">
+                <div class="bubble bubble-left">Permisi, apakah patokannya rumah pagar hitam?</div>
+                <div class="bubble bubble-right">Iya betul pak, lurus saja dari gapura.</div>
+                <div class="bubble bubble-left">Baik, saya sudah di depan pagar rumah ya kak.</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" placeholder="Ketik pesan..." class="chat-input">
+                <button class="btn-send">Kirim</button>
+            </div>
+        </div>
+
+        <!-- ================= CHAT ROOM: CS SIBENERIN ================= -->
+        <div id="chat-room-cs-screen" class="screen">
+            <div class="header-nav">
+                <span class="back-btn" onclick="navBack()">⬅ Kembali</span>
+                <h4>CS SiBenerin</h4>
+                <div style="width: 60px;"></div>
+            </div>
+            <div class="chat-area">
+                <div class="bubble bubble-left" style="background: #F0F9FF; border-color: var(--primary-sky);">
+                    Halo Kak, terima kasih telah menggunakan layanan SiBenerin. Ada yang bisa kami bantu terkait pesanan hari ini?
+                </div>
+                <div class="bubble bubble-right">Halo admin, tidak ada. Layanannya sangat memuaskan, terima kasih!</div>
+                <div class="bubble bubble-left" style="background: #F0F9FF; border-color: var(--primary-sky);">
+                    Syukurlah! Jangan ragu untuk menghubungi kami jika ada kendala lain ya kak. Have a great day! ✨
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" placeholder="Ketik pesan..." class="chat-input">
+                <button class="btn-send">Kirim</button>
+            </div>
+        </div>
+
+        <!-- ================= CHAT ROOM ================= -->
+        <div id="chat-room-screen" class="screen">
+            <div class="header-nav">
+                <span class="back-btn" onclick="navBack()">⬅ Kembali</span>
+                <h4>Budi Santoso</h4>
+                <div style="width: 60px;"></div>
+            </div>
+            <div class="chat-area">
+                <div class="bubble bubble-left">Permisi, apakah patokannya rumah pagar hitam?</div>
+                <div class="bubble bubble-right">Iya betul pak, lurus saja dari gapura.</div>
+                <div class="bubble bubble-left">Baik, saya sudah di depan pagar rumah ya kak.</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" placeholder="Ketik pesan..." class="chat-input">
+                <button class="btn-send">Kirim</button>
+            </div>
+        </div>
+
+        <!-- ================= NOTIFIKASI ================= -->
+        <div id="notification-screen" class="screen">
+            <div class="header-nav">
+                <span class="back-btn" onclick="navBack()">⬅ Kembali</span>
+                <h4>Notifikasi</h4>
+                <div style="width: 60px;"></div>
+            </div>
+            
+            <div class="notification-list">
+                <div class="notif-item unread">
+                    <div class="notif-icon" style="background: #fdf2f8;">🎉</div>
+                    <div class="notif-info">
+                        <h5>Promo Spesial AC!</h5>
+                        <p>Diskon 25% khusus perbaikan AC. Berlaku s/d 2 Juni 2026.</p>
+                        <span class="time">Baru saja</span>
+                    </div>
+                </div>
+
+                <div class="notif-item">
+                    <div class="notif-icon" style="background: #ecfdf5;">💳</div>
+                    <div class="notif-info">
+                        <h5>Pembayaran Berhasil</h5>
+                        <p>Tagihan #SBN-99281 senilai Rp 150.000 telah lunas. Terima kasih!</p>
+                        <span class="time">2 jam yang lalu</span>
+                    </div>
+                </div>
+
+                <div class="notif-item">
+                    <div class="notif-icon" style="background: #eff6ff;">🛠️</div>
+                    <div class="notif-info">
+                        <h5>Teknisi Menuju Lokasi</h5>
+                        <p>Budi Santoso sedang dalam perjalanan ke alamatmu untuk perbaikan.</p>
+                        <span class="time">Kemarin</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= AKUN ================= -->
+        <div id="akun-screen" class="screen with-nav">
+            <div class="header-simple"><h4>Profil Saya</h4></div>
+            <div class="profile-header">
+                <img src="gambar\profil.png" alt="Profil User" class="avatar large-avatar" style="background: none; object-fit: cover;">
+                <h3>Pengguna</h3>
+                <p>pengguna@example.com</p>
+                <button class="btn btn-outline btn-small mt-10">Edit Profil</button>
+            </div>
+
+            <div class="menu-list">
+                <div class="menu-item" onclick="alert('Membuka Alamat...')"><span>📍 Alamat Tersimpan</span> <span>➔</span></div>
+                <div class="menu-item" onclick="alert('Membuka Pembayaran...')"><span>💳 Metode Pembayaran</span> <span>➔</span></div>
+                <div class="menu-item" onclick="alert('Membuka Pusat Bantuan...')"><span>🎧 Pusat Bantuan</span> <span>➔</span></div>
+                <div class="menu-item text-danger" onclick="logout()"><span>🚪 Keluar Aplikasi</span></div>
+            </div>
+        </div>
+
+        <!-- ================= BOTTOM NAVIGATION ================= -->
+        <nav id="bottom-nav" class="hidden">
+            <div class="nav-item active" id="nav-home" onclick="navBottom('home')"><span>🏠<br>Beranda</span></div>
+            <div class="nav-item" id="nav-activity" onclick="navBottom('activity')"><span>📋<br>Aktivitas</span></div>
+            <div class="nav-item" id="nav-chat" onclick="navBottom('chat')"><span>💬<br>Chat</span></div>
+            <div class="nav-item" id="nav-akun" onclick="navBottom('akun')"><span>👤<br>Akun</span></div>
+        </nav>
+
+        <!-- ================= CUSTOM MODAL ================= -->
+        <div id="success-modal" class="modal-overlay">
+            <div class="modal-box">
+                <div class="modal-icon">✅</div>
+                <h4>Pesanan Berhasil!</h4>
+                <p>Teknisi akan segera memproses pesananmu dan menuju ke lokasi.</p>
+                <button class="btn btn-primary mt-10" onclick="closeModal()">Lihat Aktivitas</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
