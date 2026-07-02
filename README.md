@@ -21,7 +21,7 @@ SiBenerin adalah sebuah platform layanan terpadu berbasis pihak ketiga yang dira
 ## Cara Penggunaan
 1. Buka link https://dhrahaya.github.io/SiBenerin/ pada perangkat komputer menggunakan browser (seperti Chrome, Edge, atau Safari).
 2. Pada halaman Login, klik "Masuk dengan Email" lalu masukkan sembarang email dan klik "Selanjutnya".
-3. Pada tahap input password, coba masukkan kata sandi yang salah untuk melihat animasi error, lalu gunakan sandi yang tepat (sesuai dengan petunjuk dari tombol "Lupa Password?") untuk masuk ke aplikasi.
+3. Pada tahap input password, coba masukkan kata sandi yang salah untuk melihat animasi error, lalu gunakan sandi yang tepat (sesuai dengan petunjuk dari tombol "Lupa Password?") untuk masuk ke aplikasi. Untuk password benarnya "Sibener1"
 4. Setelah berada di Beranda, kamu bisa melihat banner promo yang bergeser otomatis, atau memilih kategori layanan yang tersedia untuk melihat daftar perbaikan.
 5. Gunakan menu navigasi di bagian bawah layar untuk berpindah ke menu "Aktivitas" guna melihat status pesanan, menu "Chat" untuk membaca pesan masuk, dan "Akun" untuk melihat profil pengguna.
 6. Pada menu Aktivitas tab Riwayat, klik kartu pesanan selesai untuk melihat detail rincian tagihan pembayaran dan foto perbandingan pekerjaan.
