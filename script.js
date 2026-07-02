@@ -1,6 +1,67 @@
 // Stack navigasi untuk melacak riwayat halaman
 let screenHistory = ['login-screen']; 
 
+// --- Sistem Loading Page (Simulasi Realistis) ---
+window.onload = function() {
+    let progress = 0;
+    const progressBarFill = document.getElementById('progress-bar-fill');
+    const loadingText = document.getElementById('loading-text');
+    const loadingScreen = document.getElementById('loading-screen');
+    const loginScreen = document.getElementById('login-screen');
+    
+    // Mencegah error jika elemen tidak ditemukan
+    if (!progressBarFill || !loadingText) return;
+
+    function updateProgress() {
+        // Penambahan persentase acak (1% hingga 12%)
+        let increment = Math.floor(Math.random() * 12) + 1;
+        
+        // Skenario melambat: Jika progress di atas 80%, tambahnya hanya sedikit-sedikit (simulasi nyangkut/lag)
+        if (progress > 80 && progress < 99) {
+            increment = Math.floor(Math.random() * 3) + 1; 
+        }
+
+        progress += increment;
+
+        // Jika sudah mencapai atau melebihi 100
+        if (progress >= 100) {
+            progress = 100;
+            progressBarFill.style.width = progress + '%';
+            loadingText.innerText = progress + '%';
+            
+            // Jeda agak lama di 100% (seolah sedang memproses masuk)
+            setTimeout(() => {
+                loadingScreen.classList.remove('active');
+                loginScreen.classList.add('active');
+                
+                // Set history aplikasi dimulai dari layar login
+                screenHistory = ['login-screen'];
+            }, 1000); // Tunggu 1 detik di 100% sebelum hilang
+            
+            return; // Hentikan fungsi loading
+        }
+
+        // Update tampilan layar
+        progressBarFill.style.width = progress + '%';
+        loadingText.innerText = progress + '%';
+
+        // Tentukan waktu tunggu untuk kenaikan persentase berikutnya
+        // Normalnya berjalan antara 0.2 detik hingga 0.8 detik
+        let nextTick = Math.floor(Math.random() * 600) + 200;
+        
+        // Skenario delay: Saat di atas 70%, kadang loadingnya bisa berhenti mendadak sampai 1.5 detik
+        if (progress > 70 && progress < 95) {
+            nextTick = Math.floor(Math.random() * 1500) + 500; 
+        }
+
+        // Panggil ulang fungsinya setelah waktu acak selesai
+        setTimeout(updateProgress, nextTick);
+    }
+
+    // Mulai animasi loading pertama kali setelah 0.5 detik web dibuka
+    setTimeout(updateProgress, 500);
+};
+
 function login() {
     navTo('home');
     document.getElementById('bottom-nav').classList.remove('hidden');
